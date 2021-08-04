@@ -1,0 +1,31 @@
+{
+  "name": "dnfl-site",
+  "version": "1.0.0",
+  "description": "dnfl의 공식 사이트입니다.",
+  "scripts": {
+    "dev": "nodemon --exec babel-node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/totoruo9/Dnfl.git"
+  },
+  "keywords": [
+    "dnfl"
+  ],
+  "author": "jinhyuk",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/totoruo9/Dnfl/issues"
+  },
+  "homepage": "https://github.com/totoruo9/Dnfl#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.14.8",
+    "@babel/node": "^7.14.9",
+    "@babel/preset-env": "^7.14.9",
+    "nodemon": "^2.0.12"
+  }
+}
