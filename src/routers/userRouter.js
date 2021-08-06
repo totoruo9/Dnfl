@@ -1,8 +1,8 @@
 import express from "express";
-import { getJoin, postJoin } from "../controllers/userController";
+import { join } from "../controllers/userController";
 
 const userRouter = express.Router();
 
-userRouter.route("/join").get(getJoin).post(postJoin);
+userRouter.use("/join",join);
 
 export default userRouter;
