@@ -1,0 +1,8 @@
+extends ../templates/layout
+include ../mixins/boardList
+
+block content 
+    each list in getBoard 
+        +boardList(list)
+    a(href="write") 글쓰기
+    

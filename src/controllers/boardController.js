@@ -4,15 +4,23 @@ export const home = (req, res) => {
     res.render("home", {pageTitle: "Home"});
 }
 
+export const boardList = async(req, res) => {
+    const getBoard = await Board.find({}).populate({
+        path: "owner"
+    });
+    console.log(getBoard);
+    const currentUserId = req.session
+    console.log(currentUserId);
+    res.render("boards/list", {pageTitle:"Board List", getBoard});
+}
+
 export const writing = async(req, res) => {
     const pageTitle = "Writing"
     const {method} = req;
 
     if(method === "GET"){
         const writing = await Board.find({});
-        console.log(req.session)
-        console.log(writing);
-        res.render("board/write",{pageTitle});
+        res.render("boards/write",{pageTitle});
     }else if(method === "POST"){
         const { 
             body:{subject, subject_content},
@@ -21,7 +29,6 @@ export const writing = async(req, res) => {
         } = req;
         
         const files = thumb[0].destination+thumb[0].filename;
-        console.log(subject, subject_content, _id);
         await Board.create({
             subject,
             content:subject_content,
@@ -29,6 +36,6 @@ export const writing = async(req, res) => {
             owner:_id
         })
         
-        res.redirect("/board/write");
+        res.redirect("/board/list");
     }
 }
