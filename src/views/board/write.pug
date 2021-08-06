@@ -1,7 +1,8 @@
-extends ../partials/layout
+extends ../templates/layout
 
 block content
-    form(method="post") 
+    form(method="post",  enctype="multipart/form-data") 
         input(type="text", name="subject", placeholder="제목을 입력해주세요")
         textarea(name="subject_content", cols="30", rows="10") 
+        input(type="file", name="thumb", accept="image/*", id="thumb")
         input(type="submit", value="등록")

@@ -4,7 +4,7 @@ const BoardSchema = new mongoose.Schema({
     subject: {type:String, required: true},
     content: {type:String, required: true},
     thumbUrl: {type:String},
-    owner: {type:Schema.Types.ObjectId, required:true, ref:"User"},
+    owner: {type:Schema.Types.ObjectId, ref:"User"},
     createAt: {type:Date, default: Date.now}
 });
 
