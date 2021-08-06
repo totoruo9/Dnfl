@@ -1,5 +1,5 @@
 import express from 'express';
-import { writing } from '../controllers/board';
+import { writing } from '../controllers/boardController';
 
 const boardRouter = express.Router();
 

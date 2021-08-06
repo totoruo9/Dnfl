@@ -1,22 +1,31 @@
 import express from "express";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import { localSession } from "./middleware";
 import boardRouter from "./routers/boardRouter";
 import rootRouter from "./routers/rootRouter";
+import userRouter from "./routers/userRouter";
 
 const app = express();
-const PORT = 4000;
 
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views")
 
-const handleListen = (req, res) => {
-    console.log(`Start server http://localhost:${PORT}`);
-}
-
 app.use(express.urlencoded({extended: true}));
+
+app.use(session({
+    secret:"keyboard cat",
+    resave: false,
+    saveUninitialized: false,
+    store: MongoStore.create({mongoUrl: process.env.DB_URL})
+}));
+
+app.use(localSession);
 
 app.use("/static", express.static("assets"));
 app.use("/node_modules", express.static("node_modules"));
 app.use("/", rootRouter);
+app.use("/user", userRouter);
 app.use("/board", boardRouter);
 
-app.listen(PORT, handleListen);
+export default app;
