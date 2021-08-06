@@ -2,6 +2,7 @@ import express from "express";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import { localSession } from "./middleware";
+import flash from "express-flash";
 import boardRouter from "./routers/boardRouter";
 import rootRouter from "./routers/rootRouter";
 import userRouter from "./routers/userRouter";
@@ -21,6 +22,7 @@ app.use(session({
 }));
 
 app.use(localSession);
+app.use(flash());
 
 app.use("/static", express.static("assets"));
 app.use("/node_modules", express.static("node_modules"));

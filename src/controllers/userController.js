@@ -1,4 +1,5 @@
 import User from "../models/User";
+import bcrypt from "bcrypt";
 
 export const join = async (req, res) => {
     const pageTitle = "Join";
@@ -27,11 +28,33 @@ export const join = async (req, res) => {
             user,
             email,
             number
-        })
+        });
         res.redirect("/user/login");
-    }
-}
+    };
+};
 
-export const login = (req, res) => {
-    res.send("login")
-}
+export const login = async (req, res) => {
+    const pageTitle = "로그인";
+    const {method} = req;
+
+    if(method === "GET"){
+        res.render("user/login", {pageTitle});
+    } else if(method === "POST"){
+        const {body:{username, password}} = req;
+
+        const getUser = await User.findOne({username});
+        if(!getUser){
+            req.flash("error", "등록된 아이디가 없습니다.");
+            return res.render("user/login", {pageTitle});
+        };
+        
+        const match = await bcrypt.compare(password, getUser.password);
+        if(!match){
+            req.flash("error", "비밀번호가 일치하지 않습니다.");
+            return res.render("user/login", {pageTitle});
+        }
+
+        req.session.loginUser = getUser;    
+        res.redirect("/");
+    }
+};
