@@ -1,3 +1,4 @@
+import { render } from "pug";
 import Board from "../models/Board";
 
 export const home = (req, res) => {
@@ -38,4 +39,8 @@ export const writing = async(req, res) => {
         
         res.redirect("/board/list");
     }
+}
+
+export const studyCalender = (req, res) => {
+    res.render("boards/calender", {pageTitle:"Calender"});
 }
