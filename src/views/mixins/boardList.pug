@@ -1,6 +1,11 @@
 mixin boardList(list)
-    div 
-        h3=list.subject
-        p=list.content
-        small=list.createAt
+    div.post__list 
+        a(href=`/board/${list._id}`) 
+            div.post__img(style=`background:url(/${list.thumbUrl}) center; background-size: cover`)
+            div.post__info
+                h3=list.subject
+                p=list.content
+                div.post__info-bottom
+                    small=list.owner.username
+                    small=list.createAt
     hr

@@ -1,4 +1,4 @@
-import mongoose, { mongo } from "mongoose";
+import mongoose, { mongo, Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
 const UserSchema = new mongoose.Schema({
@@ -7,7 +7,8 @@ const UserSchema = new mongoose.Schema({
     password: {type: String, required:true},
     email: {type: String, required: true},
     number: {type: Number, required:true},
-    createAt: {type: Date, default: Date.now}
+    createAt: {type: Date, default: Date.now},
+    writing: [{type: Schema.Types.ObjectId, ref:"Board"}]
 });
 
 UserSchema.pre("save", async function(){

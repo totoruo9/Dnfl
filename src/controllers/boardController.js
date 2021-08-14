@@ -1,4 +1,5 @@
 import Board from "../models/Board";
+import User from "../models/User";
 
 export const home = (req, res) => {
     res.render("home", {pageTitle: "Home"});
@@ -8,10 +9,18 @@ export const boardList = async(req, res) => {
     const getBoard = await Board.find({}).populate({
         path: "owner"
     });
+
     console.log(getBoard);
-    const currentUserId = req.session
-    console.log(currentUserId);
+
     res.render("boards/list", {pageTitle:"Board List", getBoard});
+}
+
+export const read = async(req, res) => {
+    const pageTitle = "Read";
+    const {params: {id}} = req;
+    const getBoard = await Board.findById(id);
+    console.log(getBoard)
+    res.render("boards/read", {pageTitle, getBoard});
 }
 
 export const writing = async(req, res) => {
@@ -27,14 +36,23 @@ export const writing = async(req, res) => {
             files: {thumb},
             session: {loginUser:{_id}}
         } = req;
+
+        if(!_id){
+            req.flash("error", "로그인 후 이용하실 수 있습니다.")
+            return res.redirect("/boards/list");
+        }
         
-        const files = thumb[0].destination+thumb[0].filename;
+        const currentUser = await User.findById(_id);
+        
         await Board.create({
             subject,
             content:subject_content,
-            files,
+            thumbUrl:(thumb[0].destination+thumb[0].filename) || [],
             owner:_id
         })
+
+        currentUser.writing.push(_id);
+        currentUser.save();
         
         res.redirect("/board/list");
     }

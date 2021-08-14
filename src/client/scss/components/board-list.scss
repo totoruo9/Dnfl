@@ -1,0 +1,32 @@
+.post__list {
+    a{
+        display: flex;
+        .post__img{
+            width: 200px;
+            height: 200px;
+        }
+        .post__info {
+            height: 200px;
+            width: 100%;
+            padding: 16px;
+            box-sizing:border-box;
+            position: relative;
+            h3 {
+                font-size: 24px;
+                margin-bottom: 16px;
+            }
+            p {
+                height: 96px;
+            }
+            .post__info-bottom{
+                display:flex;
+                justify-content: space-between;
+                width: 100%;
+                margin-top: 16px;
+                .small {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}
