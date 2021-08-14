@@ -8,7 +8,8 @@ module.exports = {
         filename:"css/styles.css",
     })],
     entry:  {
-        main: BASE_JS+"main.js"
+        main: BASE_JS+"main.js",
+        calender: BASE_JS+"calender.js"
     },
     mode: "development",
     watch: true,
