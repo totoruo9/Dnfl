@@ -1,0 +1,37 @@
+extends ../../templates/layout
+
+block content 
+    section.calender__wrap
+        h3.today 
+        table.calender-list
+            caption 
+            thead 
+                tr 
+                    th 일
+                    th 월
+                    th 화
+                    th 수
+                    th 목
+                    th 금
+                    th 토
+            tbody 
+        .changeMonth 
+            button.prevMonth <
+            button.nextMonth >
+
+    section.calender__board 
+        h3.plan
+        button.displaynone.planWrite Write
+        div.plan-wrap
+            article.plan
+                h4 First Plan 
+                p info
+                hr
+            article.plan
+                h4 Second Plan 
+                p info
+                hr
+
+block scripts 
+    script(src="/static/js/calender.js") 
+    script(src="/static/js/calenderBoard.js") 

@@ -44,14 +44,16 @@ const paintCalender = (dateList, dateObj) => {
         if(item.off){
             td.className="off";
             td.innerText = item.off;
+            td.dataset.date = new Date(dateObj.year, dateObj.month, item.off);
         }else{
             td.className="on";
             td.innerText = item.on;
             if(item.on === dateObj.date && dateObj.month === today.getMonth()){
                 td.classList.add("today");
             }
+            td.dataset.date = `${dateObj.year}/${dateObj.month+1}/${item.on}`;
         };
-        
+
         weekList.push(td);
 
         if(weekList.length === 7){
@@ -81,6 +83,8 @@ const calender = (date, state=0) => {
 }
 
 calender(today);
+
+
 
 const handlePrevMonth = () => {
     moveMonth -= 1;

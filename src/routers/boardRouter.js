@@ -1,5 +1,5 @@
 import express from 'express';
-import { boardList, read, writing, studyCalender } from '../controllers/boardController';
+import { boardList, read, writing, studyCalender, setPlan } from '../controllers/boardController';
 
 import { thumbUploader } from '../middleware';
 
@@ -12,5 +12,6 @@ boardRouter.route("/write").get(writing).post(thumbUploader.fields([
 boardRouter.get("/list", boardList);
 boardRouter.get("/:id([0-9a-f]{24})", read);
 boardRouter.get("/calender", studyCalender);
+boardRouter.get("/calender/write", setPlan);
 
 export default boardRouter;

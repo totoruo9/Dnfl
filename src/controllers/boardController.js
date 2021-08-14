@@ -60,5 +60,10 @@ export const writing = async(req, res) => {
 }
 
 export const studyCalender = (req, res) => {
-    res.render("boards/calender", {pageTitle:"Calender"});
+    res.render("boards/calender/calender", {pageTitle:"Calender"});
+}
+
+export const setPlan = async(req, res) => {
+    console.log(req.query);
+    res.render("boards/calender/write", {pageTitle: "Set Plan"});
 }

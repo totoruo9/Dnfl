@@ -9,7 +9,8 @@ module.exports = {
     })],
     entry:  {
         main: BASE_JS+"main.js",
-        calender: BASE_JS+"calender.js"
+        calender: BASE_JS+"calender.js",
+        calenderBoard: BASE_JS+"calenderBoard.js"
     },
     mode: "development",
     watch: true,
