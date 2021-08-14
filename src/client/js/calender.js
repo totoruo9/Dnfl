@@ -1,13 +1,17 @@
 const calenderList = document.querySelector(".calender-list");
 const caption = calenderList.querySelector("caption");
 const tbody = calenderList.querySelector("tbody");
+const prevMonth = document.querySelector(".prevMonth");
+const nextMonth = document.querySelector(".nextMonth");
 
 const today = new Date();
+let moveMonth = 0;
+let moveYear = 0;
 
 const createCalenderObj = (setDate) => {
     return {
-        year: setDate.getFullYear(),
-        month: setDate.getMonth(),
+        year: setDate.getFullYear()+moveYear,
+        month: setDate.getMonth()+moveMonth,
         day: setDate.getDay(),
         date: setDate.getDate(),
         get startDay() {
@@ -15,8 +19,6 @@ const createCalenderObj = (setDate) => {
         },
     }
 }
-
-const currentObj = createCalenderObj(today);
 
 let weekList = [];
 let dateList = [];
@@ -36,9 +38,7 @@ const calenderArray = (calenderObj) => {
     }
 };
 
-calenderArray(currentObj);
-
-const paintCalender = (dateList) => {
+const paintCalender = (dateList, dateObj) => {
     dateList.map((item, index) => {
         const td = document.createElement("td");
         if(item.off){
@@ -47,7 +47,7 @@ const paintCalender = (dateList) => {
         }else{
             td.className="on";
             td.innerText = item.on;
-            if(item.on === currentObj.date){
+            if(item.on === dateObj.date && dateObj.month === today.getMonth()){
                 td.classList.add("today");
             }
         };
@@ -66,50 +66,43 @@ const paintCalender = (dateList) => {
     
 };
 
-paintCalender(dateList);
+const calender = (date, state=0) => {
+    weekList = [];
+    dateList = [];
+    tbody.innerHTML = "";
+    moveMonth = state;
 
-const {month} = currentObj;
-caption.innerText = `${month < 9 ? "0"+(month+1)+"월": (month+1)+"월"}`;
+    const currentObj = createCalenderObj(date);
+    calenderArray(currentObj);
+    paintCalender(dateList, currentObj);
 
-// const start = new Date(current.year, current.month, 1);
+    const {month, year} = currentObj;
+    caption.innerText = `${month < 9 ? year+"년 "+"0"+Math.abs(month+1)+"월": year+"년 "+(month+1)+"월"}`;
+}
 
-// let startDay = 1-start.getDay();
+calender(today);
 
+const handlePrevMonth = () => {
+    moveMonth -= 1;
+    const todayMonth = today.getMonth();
+    if(todayMonth+moveMonth === -1){
+        moveYear -= 1;
+        moveMonth = 0;
+        moveMonth += 11-todayMonth;
+    }
+    calender(today, moveMonth);
+}
 
+const handlenextMonth = () => {
+    moveMonth += 1;
+    const todayMonth = today.getMonth();
+    if(todayMonth + moveMonth === 12){
+        moveYear += 1;
+        moveMonth = 0;
+        moveMonth -= todayMonth;    
+    };
+    calender(today, moveMonth);
+}
 
-// for(let i=startDay; i<= 31; i++){
-//     const monthCalender = new Date(current.year, current.month, i);
-//     const monthDate = monthCalender.getDate();
-
-//     if(current.month !== monthCalender.getMonth()){
-//         continue;
-//     }
-
-//     if(dateList.length < 6){
-//         dateList.push(monthDate);
-//     } else {
-//         dateList.push(monthDate);
-//         weekList.push(dateList);
-//         dateList = [];
-//     }
-// }
-
-// if(weekList.length < 6){
-//     const len = dateList.length;
-    
-// }
-
-
-// weekList.forEach(item => {
-//     const tr = document.createElement("tr");
-//     item.forEach(date => {
-//         const td = document.createElement("td");
-//         td.innerText = date;
-//         tr.appendChild(td);
-//     });
-//     tbody.appendChild(tr);
-// })
-
-
-
-
+prevMonth.addEventListener("click", handlePrevMonth);
+nextMonth.addEventListener("click", handlenextMonth);
