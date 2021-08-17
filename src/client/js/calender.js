@@ -41,17 +41,26 @@ const calenderArray = (calenderObj) => {
 const paintCalender = (dateList, dateObj) => {
     dateList.map((item, index) => {
         const td = document.createElement("td");
+        const {year, month, date} = dateObj;
         if(item.off){
             td.className="off";
             td.innerText = item.off;
-            td.dataset.date = new Date(dateObj.year, dateObj.month, item.off);
+            td.dataset.date = new Date(year, month, item.off);
         }else{
             td.className="on";
             td.innerText = item.on;
-            if(item.on === dateObj.date && dateObj.month === today.getMonth()){
+            if(item.on === date && month === today.getMonth()){
                 td.classList.add("today");
-            }
-            td.dataset.date = `${dateObj.year}/${dateObj.month+1}/${item.on}`;
+            };
+
+            let setMonth;
+            if(month+1 < 10){
+                setMonth = `0${month+1}`;
+            }else{
+                setMonth = month+1;
+            };
+            
+            td.dataset.date = `${year}-${setMonth}-${item.on}`;
         };
 
         weekList.push(td);

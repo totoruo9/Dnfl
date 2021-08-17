@@ -1,4 +1,3 @@
-import { render } from "pug";
 import Board from "../models/Board";
 import User from "../models/User";
 
@@ -64,6 +63,7 @@ export const studyCalender = (req, res) => {
 }
 
 export const setPlan = async(req, res) => {
-    console.log(req.query);
-    res.render("boards/calender/write", {pageTitle: "Set Plan"});
+    const {query:{date}} = req;
+    console.log(date);
+    res.render("boards/calender/write", {pageTitle: "Set Plan", date});
 }

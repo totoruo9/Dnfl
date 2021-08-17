@@ -10,21 +10,10 @@ const handleTodoList = (event) => {
     planWrite.classList.remove("displaynone");
 };
 
-const handlePlanWrite = async(event) => {
-    const text = event.target.dataset.date;
-    console.log(text);
+const handlePlanWrite = (event) => {
+    const {target:{dataset:{date}}} = event;
 
-    const test = await fetch("/board/calender/write",{
-        method: "POST", 
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({text}),
-    });
-
-    console.log(test);
-
-    // location.href = `/board/calender/write?date=${event.target.dataset.date}`
+    location.href = `/board/calender/write?date=${date}`
 }
 
 calenderDay.forEach(item => {
